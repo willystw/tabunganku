@@ -82,9 +82,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
+This is the backend component of Tabunganku, an application to track spending. For the backend implementation, refer to [here][tabunganku-fe-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -143,10 +141,27 @@ _For first time use_
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+### Add New User
+Creating a user data is the prerequisite to start Tabunganku FE. To do this, hit `/users/add` with the payload
+```json 
+{
+    "username": "<username>",
+    "email": "<email>"
+}
+```
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+We can use CURL to achieve this (`localhost:8080` is the default endpoint for Spring Boot application)
+```sh
+curl --location 'http://localhost:8080/users/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "<username>",
+    "email": "<email>"
+}'
+```
+### API Documentation
+To view API documentation, start the backend service and go to `/tabunganku-documentation`
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -154,16 +169,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <!-- ROADMAP -->
 ## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
 See the [open issues](https://github.com/willystw/tabunganku/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- CONTRIBUTING -->
@@ -207,9 +215,8 @@ Project Link: [https://github.com/willystw/tabunganku](https://github.com/willys
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* [JOOQ Library](https://www.jooq.org/)
+* [Springdoc](https://springdoc.org/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -248,3 +255,4 @@ Project Link: [https://github.com/willystw/tabunganku](https://github.com/willys
 [JQuery-url]: https://jquery.com 
 [spring.io]: https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white
 [spring-url]: https://spring.io/
+[tabunganku-fe-url]: https://github.com/willystw/tabunganku-fe
