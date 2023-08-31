@@ -86,8 +86,6 @@ This is the backend component of Tabunganku, an application to track spending. F
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 ### Built With
 * [![Spring][spring.io]][spring-url]
 
@@ -116,7 +114,7 @@ _For first time use_
    ```sh
    git clone https://github.com/willystw/tabunganku.git
    ```
-2. Enter your information in `.env` file (must create one)
+2. Create `.env` in the main directory and replace the value below with relevant information
    ```
     #Database URL
     JDBC_DB_URL=jdbc:postgresql://example.com
