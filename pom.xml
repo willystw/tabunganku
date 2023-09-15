@@ -30,9 +30,8 @@
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 
 		<!--Default value-->
-		<pg.url>localhost</pg.url>
-		<pg.username>foo</pg.username>
-		<pg.password>bar</pg.password>
+		<db.username>postgres</db.username>
+		<db.password>postgres</db.password>
 	</properties>
 
 	<dependencies>
@@ -85,6 +84,10 @@
 			<artifactId>spring-dotenv</artifactId>
 			<version>4.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -108,9 +111,85 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.codehaus.gmaven</groupId>
+				<artifactId>groovy-maven-plugin</artifactId>
+				<version>2.1.1</version>
+				<executions>
+					<execution>
+						<!-- Start the container in any phase before the actual code
+							 generation is required, i.e. at the latest in
+							 generate-sources -->
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								db = new org.testcontainers.containers.PostgreSQLContainer(
+										"postgres:15-alpine")
+										.withUsername("${db.username}")
+										.withDatabaseName("postgres")
+										.withPassword("${db.password}");
+								db.start();
+								project.properties.setProperty('db.url', db.getJdbcUrl());
+								project.properties.setProperty('testcontainer.containerid', db.getContainerId());
+								project.properties.setProperty('testcontainer.imageName', db.getDockerImageName());
+							</source>
+						</configuration>
+					</execution>
+					<execution>
+						<id>testcontainer-stop</id>
+						<phase>test</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								containerId = "${testcontainer.containerid}"
+								imageName = "${testcontainer.imageName}"
+								println("Stopping testcontainer $containerId - $imageName")
+								org.testcontainers.utility.ResourceReaper
+										.instance()
+										.stopAndRemoveContainer(containerId, imageName);
+							</source>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.testcontainers</groupId>
+						<artifactId>postgresql</artifactId>
+						<!-- Based on spring-boot-dependencies -->
+						<version>1.18.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>9.22.0</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>migrate</goal>
+						</goals>
+						<configuration>
+							<url>${db.url}</url>
+							<user>${db.username}</user>
+							<password>${db.password}</password>
+							<locations>
+								<location>filesystem:src/main/resources/db/migration</location>
+							</locations>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.jooq</groupId>
 				<artifactId>jooq-codegen-maven</artifactId>
-				<version>3.18.6</version>
 				<executions>
 					<execution>
 						<id>generate-postgre</id>
@@ -121,18 +200,12 @@
 						<configuration>
 							<!--Insert your DB configuration-->
 							<jdbc>
-								<driver>org.postgresql.Driver</driver>
-								<url>${pg.url}</url>
-								<user>${pg.username}</user>
-								<password>${pg.password}</password>
+								<url>${db.url}</url>
+								<user>${db.username}</user>
+								<password>${db.password}</password>
 							</jdbc>
 							<generator>
 								<database>
-									<name>
-										org.jooq.meta.postgres.PostgresDatabase
-									</name>
-									<includes>.*</includes>
-									<excludes></excludes>
 									<inputSchema>public</inputSchema>
 								</database>
 								<generate>
