@@ -84,10 +84,6 @@
 			<artifactId>spring-dotenv</artifactId>
 			<version>4.0.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -192,7 +188,7 @@
 				<artifactId>jooq-codegen-maven</artifactId>
 				<executions>
 					<execution>
-						<id>generate-postgre</id>
+						<id>generate-postgres</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
@@ -200,12 +196,18 @@
 						<configuration>
 							<!--Insert your DB configuration-->
 							<jdbc>
+								<driver>org.postgresql.Driver</driver>
 								<url>${db.url}</url>
 								<user>${db.username}</user>
 								<password>${db.password}</password>
 							</jdbc>
 							<generator>
 								<database>
+									<name>
+										org.jooq.meta.postgres.PostgresDatabase
+									</name>
+									<includes>.*</includes>
+									<excludes></excludes>
 									<inputSchema>public</inputSchema>
 								</database>
 								<generate>
