@@ -13,22 +13,25 @@ import com.willystw.tabunganku.model.TransactionSummary;
 import com.willystw.tabunganku.model.TransactionType;
 import com.willystw.tabunganku.service.TransactionService;
 import com.willystw.tabunganku.service.TransactionSummaryService;
-import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "${cross.origins}", maxAge = 3600)
+@CrossOrigin(origins = "${cross.origins}")
 @RestController
+@Validated
 @RequestMapping("/users/{userId}/transactions")
 public class TransactionsController implements ITransactionsController {
 
@@ -41,11 +44,11 @@ public class TransactionsController implements ITransactionsController {
     this.transactionSummaryService = transactionSummaryService;
   }
 
-  @Override
   @PostMapping("/add")
   public AddTransactionResponse addTransactions(
-      @PathVariable Long userId,
-      @RequestBody @Valid AddTransactionRequest request) {
+          @PathVariable Long userId,
+          @Valid @ModelAttribute AddTransactionRequest request
+  ) {
 
     AddTransactionResponse response = new AddTransactionResponse();
     Long transactionId = transactionService.addNewTransaction(
@@ -53,7 +56,7 @@ public class TransactionsController implements ITransactionsController {
         request.getDate(),
         request.getNote(),
         request.getCategoryId(),
-        userId
+            userId
     );
 
     if (transactionId != null) {
@@ -66,7 +69,6 @@ public class TransactionsController implements ITransactionsController {
     return response;
   }
 
-  @Override
   @GetMapping("/get/{transactionDate}")
   public GetTransactionListResponse getTransactions(
       @PathVariable long userId,
@@ -85,7 +87,6 @@ public class TransactionsController implements ITransactionsController {
     return response;
   }
 
-  @Override
   @GetMapping("/summary/{transactionDate}")
   public GetTransactionSummaryResponse getSummary(
       @PathVariable long userId,

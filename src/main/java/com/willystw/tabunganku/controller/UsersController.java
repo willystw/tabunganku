@@ -8,16 +8,18 @@ import com.willystw.tabunganku.mapper.UserMapper;
 import com.willystw.tabunganku.model.User;
 import com.willystw.tabunganku.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "${cross.origins}", maxAge = 3600)
+@CrossOrigin(origins = "${cross.origins}")
 @RestController
+@Validated
 @RequestMapping("/users")
 public class UsersController implements IUsersController {
 
@@ -30,7 +32,7 @@ public class UsersController implements IUsersController {
   @Override
   @PostMapping("/add")
   public AddUserResponse insertUserData(
-      @Valid @RequestBody AddUserRequest userData
+      @Valid @ModelAttribute AddUserRequest userData
   ) {
     Long id = userService.insertData(userData.getUsername(), userData.getEmail());
     AddUserResponse response = new AddUserResponse();
