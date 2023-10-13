@@ -10,8 +10,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 
 @Tag(name = "Category", description = "Category management APIs")
+@Validated
 public interface ICategoriesController {
 
   @Operation(
@@ -36,7 +39,7 @@ public interface ICategoriesController {
           }
       )
   })
-  AddCategoryResponse insertNewCategory(long userId, AddCategoryRequest request);
+  AddCategoryResponse insertNewCategory(long userId, @Valid AddCategoryRequest request);
 
   @Operation(
       summary = "Retrieve categories by User Id",

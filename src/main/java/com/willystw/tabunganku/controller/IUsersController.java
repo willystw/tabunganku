@@ -9,8 +9,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 
 @Tag(name = "User", description = "User management APIs")
+@Validated
 public interface IUsersController {
 
   @Operation(
@@ -35,7 +38,7 @@ public interface IUsersController {
           }
       )
   })
-  AddUserResponse insertUserData(AddUserRequest userData);
+  AddUserResponse insertUserData(@Valid AddUserRequest userData);
 
   @Operation(
       summary = "Retrieve a user data",

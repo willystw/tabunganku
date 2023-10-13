@@ -3,12 +3,12 @@ package com.willystw.tabunganku.dto.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 public class AddTransactionRequest {
 
-  @NotNull(message = "Amount must not be null")
-  @Min(value = 0, message = "Amount must be greater than 0")
+  @Min(value = 1, message = "Amount must be greater than 0")
   private Long amount;
   @NotNull(message = "Transaction Date must not be null")
   @JsonProperty("transaction_date")

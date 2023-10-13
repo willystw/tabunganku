@@ -10,9 +10,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
+
 import java.time.LocalDate;
 
 @Tag(name = "Transaction", description = "Transaction management APIs")
+@Validated
 public interface ITransactionsController {
 
   @Operation(
@@ -37,7 +41,7 @@ public interface ITransactionsController {
           }
       )
   })
-  AddTransactionResponse addTransactions(Long userId, AddTransactionRequest request);
+  AddTransactionResponse addTransactions(Long userId, @Valid AddTransactionRequest request);
 
   @Operation(
       summary = "Retrieve transaction list",
