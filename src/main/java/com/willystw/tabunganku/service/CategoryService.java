@@ -1,16 +1,17 @@
 package com.willystw.tabunganku.service;
 
+import com.tabunganku.jooq.model.Tables;
+import com.tabunganku.jooq.model.tables.records.CategoriesRecord;
 import com.willystw.tabunganku.model.Category;
 import com.willystw.tabunganku.model.TransactionType;
 import com.willystw.tabunganku.model.User;
 import com.willystw.tabunganku.repository.CategoriesRepository;
-import com.tabunganku.jooq.model.Tables;
-import com.tabunganku.jooq.model.tables.records.CategoriesRecord;
-import java.util.ArrayList;
-import java.util.List;
 import org.jooq.Result;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional

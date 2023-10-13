@@ -3,7 +3,6 @@ package com.willystw.tabunganku.dto.request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.Range;
 
 public class AddUserRequest {
   @NotBlank
