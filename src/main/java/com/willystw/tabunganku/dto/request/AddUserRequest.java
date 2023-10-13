@@ -5,14 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class AddUserRequest {
-  @NotBlank
+  @NotBlank(message = "Username must not blank")
   @Size.List({
       @Size(min = 4, message = "Username must be between 4 and 20 characters long"),
       @Size(max = 20, message = "Username must be between 4 and 20 characters long")
   })
   private String username;
 
-  @NotBlank
+  @NotBlank(message = "Email must not be blank")
   @Email(message = "Invalid email")
   private String email;
 
