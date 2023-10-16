@@ -1,14 +1,5 @@
 version: "3"
 services:
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4:7.6
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=example@example.com
-      - PGADMIN_DEFAULT_PASSWORD=example
-    networks:
-      be-network:
-        ipv4_address: 172.20.10.1
   postgres:
     container_name: db_postgres
     image: tabunganku-postgres:latest
@@ -41,6 +32,7 @@ services:
       - 8080:8080
     env_file:
       - .env
+    restart: always
     depends_on:
       postgres:
         condition: service_healthy
