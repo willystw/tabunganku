@@ -17,8 +17,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    ports:
-      - 5432:5432
     networks:
       be-network:
         ipv4_address: 172.20.10.2
