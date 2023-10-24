@@ -78,8 +78,6 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 This is the backend component of Tabunganku, an application to track spending. For the backend implementation, refer to [here][tabunganku-fe-url]
@@ -108,13 +106,19 @@ This is the backend component of Tabunganku, an application to track spending. F
 _For first time use_
 1. Start Postgres
 2. Run the script in `src/main/resources/initial_table.sql`
-#### Starting the Service
+#### Build the Project
 
 1. Clone the repo
    ```sh
    git clone https://github.com/willystw/tabunganku.git
    ```
-2. Create `.env` in the main directory and replace the value below with relevant information
+2. Build the project
+   ```sh
+   mvn clean install
+   ```
+#### Start the Service
+
+1. Create `.env` in the main directory and replace the value below with relevant information
    ```
     #Database URL
     JDBC_DB_URL=jdbc:postgresql://example.com
@@ -128,19 +132,14 @@ _For first time use_
     #Defining cross origins policy
     cross.origins=localhost
    ```
-3. Build the project
-   ```sh
-   mvn clean install -Dpg.url=<postgres url> -Dpg.username=<postgres username> -Dpg.password=<postgres password>
-   ```
+2. It can be run as a standalone application by running `mvn spring-boot:run` or as a Docker image by running `docker compose up -d`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 ### Add New User
-Creating a user data is the prerequisite to start Tabunganku FE. To do this, hit `/users/add` with the payload
+Creating a user data is the prerequisite to start Tabunganku FE. To do this, start the service and hit `/users/add` with the payload
 ```json 
 {
     "username": "<username>",
@@ -148,7 +147,7 @@ Creating a user data is the prerequisite to start Tabunganku FE. To do this, hit
 }
 ```
 
-We can use CURL to achieve this (`localhost:8080` is the default endpoint for Spring Boot application)
+We can also use CURL to achieve this
 ```sh
 curl --location 'http://localhost:8080/users/add' \
 --header 'Content-Type: application/json' \
@@ -202,7 +201,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - fwillysetiawan@gmail.com
+Willy - https://www.linkedin.com/in/willy-s-0147561a6/
 
 Project Link: [https://github.com/willystw/tabunganku](https://github.com/willystw/tabunganku)
 
