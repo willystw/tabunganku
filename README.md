@@ -78,8 +78,6 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 This is the backend component of Tabunganku, an application to track spending. For the backend implementation, refer to [here][tabunganku-fe-url]
@@ -114,7 +112,13 @@ _For first time use_
    ```sh
    git clone https://github.com/willystw/tabunganku.git
    ```
-2. Create `.env` in the main directory and replace the value below with relevant information
+2. Build the project
+   ```sh
+   mvn clean install
+   ```
+#### Start the Service
+
+1. Create `.env` in the main directory and replace the value below with relevant information
    ```
     #Database URL
     JDBC_DB_URL=jdbc:postgresql://example.com
@@ -128,19 +132,9 @@ _For first time use_
     #Defining cross origins policy
     cross.origins=localhost
    ```
-3. Build the project
-   ```sh
-   mvn clean install
-   ```
-#### Start the Service
-After the project is successfully built, it can be run as a standalone application by running command:
-`mvn spring-boot:run`
-
-Or as a Docker image by running `docker compose up -d`
+2. It can be run as a standalone application by running `mvn spring-boot:run` or as a Docker image by running `docker compose up -d`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
