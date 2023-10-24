@@ -108,7 +108,7 @@ This is the backend component of Tabunganku, an application to track spending. F
 _For first time use_
 1. Start Postgres
 2. Run the script in `src/main/resources/initial_table.sql`
-#### Starting the Service
+#### Build the Project
 
 1. Clone the repo
    ```sh
@@ -130,8 +130,13 @@ _For first time use_
    ```
 3. Build the project
    ```sh
-   mvn clean install -Dpg.url=<postgres url> -Dpg.username=<postgres username> -Dpg.password=<postgres password>
+   mvn clean install
    ```
+#### Start the Service
+After the project is successfully built, it can be run as a standalone application by running command:
+`mvn spring-boot:run`
+
+Or as a Docker image by running `docker compose up -d`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -140,7 +145,7 @@ _For first time use_
 <!-- USAGE EXAMPLES -->
 ## Usage
 ### Add New User
-Creating a user data is the prerequisite to start Tabunganku FE. To do this, hit `/users/add` with the payload
+Creating a user data is the prerequisite to start Tabunganku FE. To do this, start the service and hit `/users/add` with the payload
 ```json 
 {
     "username": "<username>",
@@ -148,7 +153,7 @@ Creating a user data is the prerequisite to start Tabunganku FE. To do this, hit
 }
 ```
 
-We can use CURL to achieve this (`localhost:8080` is the default endpoint for Spring Boot application)
+We can also use CURL to achieve this
 ```sh
 curl --location 'http://localhost:8080/users/add' \
 --header 'Content-Type: application/json' \
@@ -202,7 +207,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - fwillysetiawan@gmail.com
+Willy - https://www.linkedin.com/in/willy-s-0147561a6/
 
 Project Link: [https://github.com/willystw/tabunganku](https://github.com/willystw/tabunganku)
 
