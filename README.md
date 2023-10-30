@@ -100,9 +100,31 @@ This is the backend component of Tabunganku, an application to track spending. F
 * Maven
 * Postgres
 
-### Installation
+### Installation using Docker
+1. Clone the repo
+   ```sh
+   git clone https://github.com/willystw/tabunganku.git
+   ```
+2. Create `.env` in the main directory and replace the value below with relevant information
+   ```
+    #Database URL
+    JDBC_DB_URL=jdbc:postgresql://example.com
+    
+    #Database Username
+    JDBC_DB_USERNAME=foo
+    
+    #Database Password
+    JDBC_DB_PASSWORD=bar
+    
+    #Defining cross origins policy
+    cross.origins=localhost
+   ```
+3. Run the application
+   ```sh
+   docker compose up
+   ```
+### Installation without using Docker
 #### Build the Project
-
 1. Clone the repo
    ```sh
    git clone https://github.com/willystw/tabunganku.git
@@ -111,8 +133,10 @@ This is the backend component of Tabunganku, an application to track spending. F
    ```sh
    mvn clean install
    ```
-#### Build Docker Image
-To build the project as a Docker image, run `docker image build -f src/main/docker/Dockerfile .` 
+#### Initialize Postgres Database
+1. Start Postgres
+2. Create a new database `tabungan`
+3. Run script in `src/main/resources/initial_table.sql` to init the table
 #### Start the Service
 1. Create `.env` in the main directory and replace the value below with relevant information
    ```
@@ -128,7 +152,7 @@ To build the project as a Docker image, run `docker image build -f src/main/dock
     #Defining cross origins policy
     cross.origins=localhost
    ```
-2. It can be run as a standalone application by running `mvn spring-boot:run` or as a Docker image by running `docker compose up -d`
+2. Run command `mvn spring-boot:run`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
