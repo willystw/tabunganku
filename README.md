@@ -101,11 +101,6 @@ This is the backend component of Tabunganku, an application to track spending. F
 * Postgres
 
 ### Installation
-
-#### Postgres Preparation
-_For first time use_
-1. Start Postgres
-2. Run the script in `src/main/resources/initial_table.sql`
 #### Build the Project
 
 1. Clone the repo
@@ -116,8 +111,9 @@ _For first time use_
    ```sh
    mvn clean install
    ```
+#### Build Docker Image
+To build the project as a Docker image, run `docker image build -f src/main/docker/Dockerfile .` 
 #### Start the Service
-
 1. Create `.env` in the main directory and replace the value below with relevant information
    ```
     #Database URL
@@ -139,7 +135,7 @@ _For first time use_
 <!-- USAGE EXAMPLES -->
 ## Usage
 ### Add New User
-Creating a user data is the prerequisite to start Tabunganku FE. To do this, start the service and hit `/users/add` with the payload
+Creating a user data is the prerequisite to use Tabunganku features. To do this, start the service and hit `/users/add` with the payload
 ```json 
 {
     "username": "<username>",
