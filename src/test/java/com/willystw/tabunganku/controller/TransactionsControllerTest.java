@@ -6,6 +6,7 @@ import com.willystw.tabunganku.service.TransactionService;
 import com.willystw.tabunganku.service.TransactionSummaryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TransactionsController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class TransactionsControllerTest {
 
     @Autowired
