@@ -1,0 +1,50 @@
+version: "3"
+services:
+  postgres:
+    container_name: db_postgres
+    image: tabunganku-postgres:latest
+    restart: always
+    build:
+      dockerfile: src/main/docker/Dockerfile_Postgres
+    environment:
+      - POSTGRES_USER=tabunganku
+      - POSTGRES_PASSWORD=tabungankudb
+      - POSTGRES_DB=tabungan
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      be-network:
+        ipv4_address: 172.20.10.2
+  backend:
+    container_name: tabunganku-backend
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile
+    image: tabunganku-backend:latest
+    ports:
+      - 8080:8080
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    links:
+      - postgres
+    networks:
+      be-network:
+        ipv4_address: 172.20.10.3
+volumes:
+  postgres_data:
+networks:
+  be-network:
+    driver: bridge
+    name: tabunganku-network
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
