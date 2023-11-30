@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "${cross.origins}")
 @RestController
 @RequestMapping("/users/{userId}/transactions")
 public class TransactionsController implements ITransactionsController {

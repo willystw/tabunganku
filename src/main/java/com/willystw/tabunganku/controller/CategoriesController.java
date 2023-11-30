@@ -8,7 +8,6 @@ import com.willystw.tabunganku.dto.response.GetCategoryListResponse;
 import com.willystw.tabunganku.mapper.CategoryMapper;
 import com.willystw.tabunganku.model.Category;
 import com.willystw.tabunganku.service.CategoryService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "${cross.origins}")
 @RestController
 @RequestMapping("/users/{userId}/categories")
 public class CategoriesController implements ICategoriesController {

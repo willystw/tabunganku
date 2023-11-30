@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class UserService {
+public class UserService  {
   private final LongIdGenerator idGenerator;
   private final UsersRepository usersRepository;
 
@@ -37,9 +37,11 @@ public class UserService {
 
     if (record != null) {
       User user = new User();
-      user.setUserName(record.getUsername());
+      user.setUsername(record.getUsername());
       user.setUserId(record.getId());
       user.setEmail(record.getEmail());
+      user.setPassword(record.getPasswordhash());
+      user.setActive(record.getIsactive());
 
       return user;
     }
