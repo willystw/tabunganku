@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 	info = @Info(
 			title = "Tabunganku",
 			description = "An application to track daily spending.",
-			version = "0.1.0"
+			version = "0.2.0"
 	)
 )
 @SpringBootApplication(exclude={UserDetailsServiceAutoConfiguration.class})

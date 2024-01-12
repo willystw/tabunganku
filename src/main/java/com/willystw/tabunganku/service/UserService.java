@@ -40,8 +40,9 @@ public class UserService  {
       user.setUsername(record.getUsername());
       user.setUserId(record.getId());
       user.setEmail(record.getEmail());
-      user.setPassword(record.getPasswordhash());
       user.setActive(record.getIsactive());
+      user.setFirstName(record.getFirstName());
+      user.setLastName(record.getLastName());
 
       return user;
     }
