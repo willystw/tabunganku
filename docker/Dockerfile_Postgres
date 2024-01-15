@@ -1,0 +1,2 @@
+FROM postgres:15-alpine
+COPY docker/resources/initial_table.sql /docker-entrypoint-initdb.d/

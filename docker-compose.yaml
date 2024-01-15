@@ -2,10 +2,10 @@ version: "3"
 services:
   postgres:
     container_name: db_postgres
-    image: tabunganku-postgres:latest
+    image: tabunganku-postgres
     restart: always
     build:
-      dockerfile: src/main/docker/Dockerfile_Postgres
+      dockerfile: docker/Dockerfile_Postgres
     environment:
       - POSTGRES_USER=tabunganku
       - POSTGRES_PASSWORD=tabungankudb

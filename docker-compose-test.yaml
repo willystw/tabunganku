@@ -15,7 +15,7 @@ services:
     image: tabunganku-postgres
     restart: always
     build:
-      dockerfile: src/main/docker/Dockerfile_Postgres
+      dockerfile: docker/Dockerfile_Postgres
     environment:
       - POSTGRES_USER=tabunganku
       - POSTGRES_PASSWORD=tabungankudb
@@ -30,11 +30,31 @@ services:
     networks:
       be-network:
         ipv4_address: 172.20.10.2
+  keycloak:
+    container_name: keycloak-server
+    restart: always
+    build:
+      dockerfile: docker/Dockerfile_Keycloak
+      context: .
+    image: tabungan-keycloak
+    env_file:
+      - .env
+    ports:
+      - 8180:8180
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command:
+      - start-dev
+      - --http-port=8180
+    networks:
+      be-network:
+        ipv4_address: 172.20.10.5
   backend:
     container_name: tabunganku-backend
     build:
       context: .
-      dockerfile: src/main/docker/Dockerfile
+      dockerfile: docker/Dockerfile
     image: tabunganku-backend
     ports:
       - 8080:8080
@@ -49,25 +69,6 @@ services:
     networks:
       be-network:
         ipv4_address: 172.20.10.3
-  keycloak:
-    container_name: keycloak-server
-    restart: always
-    build:
-      dockerfile: src/main/docker/Dockerfile_Keycloak
-      additional_contexts:
-        jar: target/
-    image: tabungan-keycloak
-    ports:
-      - 8180:8180
-    environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-    command:
-      - start-dev
-      - --http-port=8180
-    networks:
-      be-network:
-        ipv4_address: 172.20.10.5
 volumes:
   postgres_data:
 networks:

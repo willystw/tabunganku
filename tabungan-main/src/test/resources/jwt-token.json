@@ -1,0 +1,13 @@
+{
+  "preferred_username": "tonton-pirate",
+  "sub": "018d0cce-a964-79a7-bebf-106b393daafb",
+  "scope": "profile email",
+  "email": "tonton-pirate@machin.truc",
+  "email_verified": true,
+  "realm_access": {
+    "roles": [
+      "NICE",
+      "AUTHOR"
+    ]
+  }
+}
