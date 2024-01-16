@@ -46,6 +46,7 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=admin
     command:
       - start-dev
+      - --import-realm
       - --http-port=8180
     networks:
       be-network:

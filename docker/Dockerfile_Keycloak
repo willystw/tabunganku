@@ -1,6 +1,8 @@
 FROM quay.io/keycloak/keycloak:23.0 as jar
 ARG JAR_FILE=external-source/target/*.jar
+ARG JSON_FILE=docker/resources/*.json
 COPY ${JAR_FILE} external.jar
+COPY ${JSON_FILE} tabungan.json
 
 FROM quay.io/keycloak/keycloak:23.0 as builder
 # Enable health and metrics support
@@ -12,6 +14,8 @@ ENV KC_DB=postgres
 
 WORKDIR /opt/keycloak
 COPY --chown=keycloak:keycloak --from=jar *.jar /opt/keycloak/providers/
+COPY --chown=keycloak:keycloak --from=jar *.json /opt/keycloak/data/import/
+
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:23.0

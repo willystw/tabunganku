@@ -20,6 +20,27 @@ services:
     networks:
       be-network:
         ipv4_address: 172.20.10.2
+  keycloak:
+    container_name: keycloak_server
+    restart: always
+    build:
+      dockerfile: docker/Dockerfile_Keycloak
+      context: .
+    image: tabungan-keycloak
+    env_file:
+      - .env
+    ports:
+      - 8180:8180
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command:
+      - start-dev
+      - --import-realm
+      - --http-port=8180
+    networks:
+      be-network:
+        ipv4_address: 172.20.10.5
   backend:
     container_name: tabunganku-backend
     image: willystw/tabunganku-be
