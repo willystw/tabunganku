@@ -13,7 +13,6 @@ public class ExternalDbSyncProviderFactory implements EventListenerProviderFacto
 
     @Override
     public EventListenerProvider create(KeycloakSession keycloakSession) {
-        System.out.println("New ExternalDbSyncProvider created!");
         return new ExternalDbSyncProvider();
     }
 

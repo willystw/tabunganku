@@ -23,12 +23,7 @@ public class ExternalDbSyncProvider implements EventListenerProvider {
 
     @Override
     public void onEvent(Event event) {
-        System.out.println("EVENT DETECTED!");
-        System.out.println("REALM ID: " + event.getRealmId());
-
         if (event.getRealmId().equals(REALM_ID) && event.getType() == EventType.REGISTER) {
-            System.out.println("REALM");
-
             try (Connection conn = DbConnect(); var pstmt = conn.prepareStatement(DB_SQL)) {
                 pstmt.setObject(1, UUID.fromString(event.getUserId()));
                 pstmt.setString(2, event.getDetails().get("first_name"));
@@ -38,7 +33,7 @@ public class ExternalDbSyncProvider implements EventListenerProvider {
 
                 int affectedRows = pstmt.executeUpdate();
                 // print statement for debug, remove after testing
-                System.out.println("Inserted " + affectedRows + " row(s)");
+                System.out.println("Inserted " + affectedRows + " row(s) into Tabungan DB after registration event.");
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
 
