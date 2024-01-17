@@ -32,8 +32,6 @@ public class ExternalDbSyncProvider implements EventListenerProvider {
                 pstmt.setString(5, event.getDetails().get("username"));
 
                 int affectedRows = pstmt.executeUpdate();
-                // print statement for debug, remove after testing
-                System.out.println("Inserted " + affectedRows + " row(s) into Tabungan DB after registration event.");
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
 
@@ -56,7 +54,6 @@ public class ExternalDbSyncProvider implements EventListenerProvider {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

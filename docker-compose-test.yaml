@@ -36,7 +36,7 @@ services:
     build:
       dockerfile: docker/Dockerfile_Keycloak
       context: .
-    image: tabungan-keycloak
+    image: tabunganku-keycloak
     env_file:
       - .env
     ports:
