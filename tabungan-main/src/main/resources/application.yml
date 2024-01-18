@@ -5,6 +5,9 @@ keycloak-port: 8180
 keycloak-issuer: ${scheme}://${keycloak-host}:${keycloak-port}/realms/Tabungan
 
 spring:
+    session:
+        jdbc:
+            initialize-schema: ALWAYS
     datasource:
         driver-class-name: org.postgresql.Driver
         password: ${JDBC_DB_PASSWORD}
