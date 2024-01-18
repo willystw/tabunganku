@@ -23,10 +23,7 @@ services:
   keycloak:
     container_name: keycloak_server
     restart: always
-    build:
-      dockerfile: docker/Dockerfile_Keycloak
-      context: .
-    image: tabungan-keycloak
+    image: willystw/tabunganku-keycloak
     env_file:
       - .env
     ports:
