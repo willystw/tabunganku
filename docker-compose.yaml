@@ -26,6 +26,7 @@ services:
     image: willystw/tabunganku-keycloak
     env_file:
       - .keycloak.env
+      - .env
     ports:
       - "8180:8180"
     command:

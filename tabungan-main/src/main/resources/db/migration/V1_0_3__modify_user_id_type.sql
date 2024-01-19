@@ -6,15 +6,15 @@ alter table transactions drop constraint transactions_user_id_fkey;
 alter table categories drop constraint categories_user_id_fkey;
 
 ALTER TABLE users ADD COLUMN user_id uuid;
-update users set user_id='35d3d618-b0f7-4353-be2a-b60e7727ef5d';
 alter table users drop constraint users_pkey;
 alter table users drop column id;
+update users set user_id='18105bd5-4779-4721-9374-068e0ab12d7b';
 ALTER TABLE users add primary key (user_id);
 
 alter table categories drop user_id;
 alter table categories add user_id uuid references users(user_id);
-update categories set user_id='35d3d618-b0f7-4353-be2a-b60e7727ef5d';
+update categories set user_id='18105bd5-4779-4721-9374-068e0ab12d7b';
 
 alter table transactions drop user_id;
 alter table transactions add user_id uuid references users(user_id);
-update transactions set user_id='35d3d618-b0f7-4353-be2a-b60e7727ef5d';
+update transactions set user_id='18105bd5-4779-4721-9374-068e0ab12d7b';

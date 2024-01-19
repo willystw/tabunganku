@@ -39,6 +39,7 @@ services:
     image: tabunganku-keycloak
     env_file:
       - .keycloak.env
+      - .env
     ports:
       - "8180:8180"
     command:
@@ -62,6 +63,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      keycloak:
+        condition: service_started
     links:
       - postgres
     networks:
