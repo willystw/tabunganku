@@ -1,8 +1,4 @@
-scheme: http
-origins: ${scheme}://localhost:8080
-keycloak-host: 172.20.10.5
-keycloak-port: 8180
-keycloak-issuer: ${scheme}://${keycloak-host}:${keycloak-port}/realms/Tabungan
+keycloak-issuer: ${KC_URL}/realms/Tabungan
 
 spring:
     session:

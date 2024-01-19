@@ -38,12 +38,10 @@ services:
       context: .
     image: tabunganku-keycloak
     env_file:
+      - .keycloak.env
       - .env
     ports:
-      - 8180:8180
-    environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - "8180:8180"
     command:
       - start-dev
       - --import-realm
@@ -58,13 +56,15 @@ services:
       dockerfile: docker/Dockerfile
     image: tabunganku-backend
     ports:
-      - 8080:8080
+      - "8080:8080"
     env_file:
       - .env
     restart: always
     depends_on:
       postgres:
         condition: service_healthy
+      keycloak:
+        condition: service_started
     links:
       - postgres
     networks:
