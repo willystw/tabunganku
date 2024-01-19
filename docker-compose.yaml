@@ -25,12 +25,9 @@ services:
     restart: always
     image: willystw/tabunganku-keycloak
     env_file:
-      - .env
+      - .keycloak.env
     ports:
-      - 8180:8180
-    environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - "8180:8180"
     command:
       - start-dev
       - --import-realm
@@ -42,7 +39,7 @@ services:
     container_name: tabunganku-backend
     image: willystw/tabunganku-be
     ports:
-      - 8080:8080
+      - "8080:8080"
     env_file:
       - .env
     restart: always
