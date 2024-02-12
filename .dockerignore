@@ -1,4 +1,7 @@
-docker/**
+**/Dockerfile
+**/Dockerfile_Keycloak
+**/Dockerfile_Postgres
+!docker/resources/
 .dockerignore
 .git
 .gitignore
