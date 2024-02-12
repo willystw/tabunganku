@@ -21,9 +21,12 @@ services:
       be-network:
         ipv4_address: 172.20.10.2
   keycloak:
-    container_name: keycloak_server
+    container_name: keycloak-server
     restart: always
-    image: willystw/tabunganku-keycloak
+    build:
+      dockerfile: docker/Dockerfile_Keycloak
+      context: .
+    image: tabunganku-keycloak
     env_file:
       - .keycloak.env
       - .env
@@ -38,7 +41,10 @@ services:
         ipv4_address: 172.20.10.5
   backend:
     container_name: tabunganku-backend
-    image: willystw/tabunganku-be
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: tabunganku-backend
     ports:
       - "8080:8080"
     env_file:
@@ -47,6 +53,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      keycloak:
+        condition: service_started
     links:
       - postgres
     networks:
